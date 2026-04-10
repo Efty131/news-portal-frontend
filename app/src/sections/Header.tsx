@@ -32,14 +32,14 @@ const Header = ({ scrolled }: HeaderProps) => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
               <Newspaper className="w-6 h-6 text-white" />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
                 বাংলাদেশ নিউজ
               </h1>
-              <p className="text-xs text-gray-500">Bangladesh News</p>
+              <p className="text-xs text-gray-600">Bangladesh News</p>
             </div>
           </a>
 
@@ -49,7 +49,7 @@ const Header = ({ scrolled }: HeaderProps) => {
               <a
                 key={item.label}
                 href={item.href}
-                className="nav-link text-lg font-medium py-2"
+                className="nav-link text-sm font-medium py-2"
               >
                 {item.label}
               </a>
@@ -72,7 +72,7 @@ const Header = ({ scrolled }: HeaderProps) => {
                   />
                   <button 
                     onClick={() => setSearchOpen(false)}
-                    className="text-green-500 hover:text-gray-700"
+                    className="text-gray-700 hover:text-gray-900"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -90,14 +90,14 @@ const Header = ({ scrolled }: HeaderProps) => {
             {/* E-Paper */}
             <a 
               href="#epaper" 
-              className="hidden md:flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors"
+              className="hidden md:flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
             >
               <Newspaper className="w-4 h-4" />
               <span>ই-পেপার</span>
             </a>
 
             {/* English Toggle */}
-            <button className="hidden md:flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors">
+            <button className="hidden md:flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors">
               <Globe className="w-4 h-4" />
               <span>English</span>
             </button>
@@ -106,7 +106,7 @@ const Header = ({ scrolled }: HeaderProps) => {
             <Button 
               variant="outline" 
               size="sm"
-              className="hidden sm:flex items-center gap-1"
+              className="hidden sm:flex items-center gap-1 border-green-600 text-green-600 hover:bg-green-50"
             >
               <User className="w-4 h-4" />
               <span>লগইন</span>
@@ -122,12 +122,12 @@ const Header = ({ scrolled }: HeaderProps) => {
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col gap-4 mt-8">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
                       <Newspaper className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h2 className="text-lg font-bold text-gray-900">বাংলাদেশ নিউজ</h2>
-                      <p className="text-xs text-gray-500">Bangladesh News</p>
+                      <p className="text-xs text-gray-600">Bangladesh News</p>
                     </div>
                   </div>
                   
@@ -136,7 +136,7 @@ const Header = ({ scrolled }: HeaderProps) => {
                       <a
                         key={item.label}
                         href={item.href}
-                        className="px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-red-600 rounded-lg transition-colors"
+                        className="px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded-lg transition-colors"
                       >
                         {item.label}
                       </a>
@@ -145,11 +145,11 @@ const Header = ({ scrolled }: HeaderProps) => {
 
                   <div className="border-t pt-4 mt-4">
                     <div className="flex items-center gap-4 px-4">
-                      <a href="#epaper" className="flex items-center gap-2 text-sm text-gray-600">
+                      <a href="#epaper" className="flex items-center gap-2 text-sm text-gray-700">
                         <Newspaper className="w-4 h-4" />
                         ই-পেপার
                       </a>
-                      <button className="flex items-center gap-2 text-sm text-gray-600">
+                      <button className="flex items-center gap-2 text-sm text-gray-700">
                         <Globe className="w-4 h-4" />
                         English
                       </button>

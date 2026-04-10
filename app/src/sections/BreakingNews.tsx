@@ -10,7 +10,7 @@ const BreakingNews = () => {
   ];
 
   return (
-    <div className="bg-red-600 text-white py-3 overflow-hidden">
+    <div className="bg-green-600 text-white py-3 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
           {/* Breaking News Label */}

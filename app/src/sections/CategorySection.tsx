@@ -85,7 +85,7 @@ const CategorySection = ({
               <h3 className="text-lg md:text-xl font-bold text-white leading-tight group-hover:text-gray-200 transition-colors">
                 {featuredTitle}
               </h3>
-              <p className="text-gray-300 text-sm mt-2 line-clamp-2">
+              <p className="text-gray-200 text-sm mt-2 line-clamp-2">
                 {featuredExcerpt}
               </p>
             </div>
@@ -104,10 +104,10 @@ const CategorySection = ({
                 {index + 1}
               </span>
               <div className="flex-1">
-                <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors">
+                <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
                   {news.title}
                 </h4>
-                <span className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                <span className="text-xs text-gray-700 mt-1 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {news.time}
                 </span>

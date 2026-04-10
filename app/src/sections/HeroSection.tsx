@@ -52,10 +52,10 @@ const HeroSection = () => {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <span className="category-badge category-national mb-3">
+                <span className="inline-block px-3 py-1 bg-green-600 text-white text-xs font-semibold rounded mb-3">
                   {featuredNews.category}
                 </span>
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight group-hover:text-red-300 transition-colors">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight group-hover:text-green-300 transition-colors">
                   {featuredNews.title}
                 </h2>
                 <p className="text-gray-200 text-sm md:text-base mb-4 line-clamp-2">
@@ -100,10 +100,10 @@ const HeroSection = () => {
                   }`}>
                     {news.category}
                   </span>
-                  <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors">
+                  <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
                     {news.title}
                   </h3>
-                  <span className="text-sm text-black mt-1 flex items-center gap-1">
+                  <span className="text-xs text-gray-700 mt-1 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     {news.time}
                   </span>

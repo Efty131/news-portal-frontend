@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Clock, TrendingUp, Mail, Send, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
 
 const Sidebar = () => {
   const [email, setEmail] = useState('');
@@ -35,6 +36,7 @@ const Sidebar = () => {
     if (email) {
       setSubscribed(true);
       setEmail('');
+      toast.success('সাবস্ক্রিপশন সফল!');
     }
   };
 
@@ -43,8 +45,8 @@ const Sidebar = () => {
       {/* Popular News */}
       <div className="bg-white rounded-xl shadow-sm p-5">
         <div className="flex items-center gap-2 mb-5">
-          <TrendingUp className="w-5 h-5 text-red-600" />
-          <h3 className="text-lg font-bold text-black">জনপ্রিয় খবর</h3>
+          <TrendingUp className="w-5 h-5 text-green-600" />
+          <h3 className="text-lg font-bold text-gray-900">জনপ্রিয় খবর</h3>
         </div>
         <div className="space-y-4">
           {popularNews.map((news, index) => (
@@ -52,14 +54,14 @@ const Sidebar = () => {
               key={index}
               className="group cursor-pointer flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
             >
-              <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center bg-red-100 text-red-600 rounded-full text-sm font-bold group-hover:bg-red-600 group-hover:text-white transition-colors">
+              <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center bg-green-100 text-green-600 rounded-full text-sm font-bold group-hover:bg-green-600 group-hover:text-white transition-colors">
                 {index + 1}
               </span>
               <div className="flex-1">
-                <h4 className="text-sm font-medium text-black line-clamp-2 group-hover:text-red-600 transition-colors">
+                <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
                   {news.title}
                 </h4>
-                <span className="text-xs text-black mt-1 flex items-center gap-1">
+                <span className="text-xs text-gray-700 mt-1 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {news.views} বার পড়া
                 </span>
@@ -70,30 +72,30 @@ const Sidebar = () => {
       </div>
 
       {/* Newsletter */}
-      <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-xl p-5 text-white">
+      <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-xl p-5 text-white">
         <div className="flex items-center gap-2 mb-3">
           <Mail className="w-5 h-5" />
           <h3 className="text-lg font-bold">নিউজলেটার</h3>
         </div>
-        <p className="text-sm text-red-100 mb-4">
+        <p className="text-sm text-green-100 mb-4">
           প্রতিদিনের সেরা খবর পেতে সাবস্ক্রাইব করুন
         </p>
         
         {subscribed ? (
           <div className="bg-white/20 rounded-lg p-4 text-center">
             <p className="text-sm font-medium">সাবস্ক্রিপশন সফল!</p>
-            <p className="text-xs text-red-100 mt-1">আপনার ইমেইলে নিউজলেটার পাঠানো হবে</p>
+            <p className="text-xs text-green-100 mt-1">আপনার ইমেইলে নিউজলেটার পাঠানো হবে</p>
           </div>
         ) : (
           <form onSubmit={handleSubscribe} className="space-y-3">
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
               <Input
                 type="email"
                 placeholder="আপনার ইমেইল"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-white border-0 text-gray-900 placeholder:text-gray-400"
+                className="pl-10 bg-white border-0 text-gray-900 placeholder:text-gray-600"
                 required
               />
             </div>
@@ -124,10 +126,10 @@ const Sidebar = () => {
               href={link.href}
               className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 transition-colors group"
             >
-              <span className="text-sm font-medium text-gray-700 group-hover:text-red-600 transition-colors">
+              <span className="text-sm font-medium text-gray-800 group-hover:text-green-600 transition-colors">
                 {link.label}
               </span>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-green-600 transition-colors" />
             </a>
           ))}
         </div>
@@ -135,9 +137,9 @@ const Sidebar = () => {
 
       {/* Ad Placeholder */}
       <div className="bg-gray-100 rounded-xl p-5 text-center">
-        <p className="text-sm text-gray-500 mb-2">বিজ্ঞাপন</p>
+        <p className="text-sm text-gray-700 mb-2">বিজ্ঞাপন</p>
         <div className="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-          <p className="text-gray-400 text-sm">৩০০ x ২৫০</p>
+          <p className="text-gray-600 text-sm">৩০০ x ২৫০</p>
         </div>
       </div>
     </aside>

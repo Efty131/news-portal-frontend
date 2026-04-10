@@ -83,7 +83,7 @@ const LatestNews = () => {
         <h2 className="section-title">সর্বশেষ খবর</h2>
         <a 
           href="#all-news" 
-          className="flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
+          className="flex items-center gap-1 text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
         >
           সব দেখুন
           <ArrowRight className="w-4 h-4" />
@@ -110,13 +110,13 @@ const LatestNews = () => {
                 <span className={`category-badge ${news.categoryClass} mb-2`}>
                   {news.category}
                 </span>
-                <h3 className="text-base font-semibold text-gray-900 line-clamp-2 mb-2 group-hover:text-red-600 transition-colors">
+                <h3 className="text-base font-semibold text-gray-900 line-clamp-2 mb-2 group-hover:text-green-600 transition-colors">
                   {news.title}
                 </h3>
-                <p className="text-base text-black line-clamp-2 mb-3">
+                <p className="text-sm text-gray-700 line-clamp-2 mb-3">
                   {news.excerpt}
                 </p>
-                <div className="flex items-center gap-1 text-sm text-black">
+                <div className="flex items-center gap-1 text-xs text-gray-700">
                   <Clock className="w-3 h-3" />
                   {news.time}
                 </div>

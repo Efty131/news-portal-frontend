@@ -30,15 +30,15 @@ const Footer = () => {
           {/* About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
                 <Newspaper className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-bold">বাংলাদেশ নিউজ</h3>
-                <p className="text-xs text-gray-400">Bangladesh News</p>
+                <p className="text-xs text-gray-300">Bangladesh News</p>
               </div>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed mb-4">
+            <p className="text-sm text-gray-300 leading-relaxed mb-4">
               বাংলাদেশ নিউজ দেশের সবচেয়ে জনপ্রিয় অনলাইন নিউজ পোর্টাল। সত্য ও নিরপেক্ষ সংবাদ পরিবেশন আমাদের অঙ্গীকার।
             </p>
             <div className="flex items-center gap-3">
@@ -46,7 +46,7 @@ const Footer = () => {
                 href="https://facebook.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors"
               >
                 <Facebook className="w-4 h-4" />
               </a>
@@ -54,7 +54,7 @@ const Footer = () => {
                 href="https://twitter.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors"
               >
                 <Twitter className="w-4 h-4" />
               </a>
@@ -62,7 +62,7 @@ const Footer = () => {
                 href="https://youtube.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors"
               >
                 <Youtube className="w-4 h-4" />
               </a>
@@ -70,7 +70,7 @@ const Footer = () => {
                 href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors"
               >
                 <Instagram className="w-4 h-4" />
               </a>
@@ -85,7 +85,7 @@ const Footer = () => {
                 <li key={cat.label}>
                   <a 
                     href={cat.href}
-                    className="text-sm text-gray-400 hover:text-red-500 transition-colors"
+                    className="text-sm text-gray-300 hover:text-green-500 transition-colors"
                   >
                     {cat.label}
                   </a>
@@ -102,7 +102,7 @@ const Footer = () => {
                 <li key={link.label}>
                   <a 
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-red-500 transition-colors"
+                    className="text-sm text-gray-300 hover:text-green-500 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -116,20 +116,20 @@ const Footer = () => {
             <h4 className="text-base font-bold mb-4">যোগাযোগ</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-gray-400">
+                <MapPin className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-300">
                   ১২৩ প্রেস ক্লাব রোড, ঢাকা-১০০০, বাংলাদেশ
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-red-500 flex-shrink-0" />
-                <p className="text-sm text-gray-400">
+                <Phone className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <p className="text-sm text-gray-300">
                   +৮৮০ ১২৩৪-৫৬৭৮৯০
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-red-500 flex-shrink-0" />
-                <p className="text-sm text-gray-400">
+                <Mail className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <p className="text-sm text-gray-300">
                   info@bangladeshnews.com
                 </p>
               </div>
@@ -142,17 +142,17 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-400">
               © ২০২৬ বাংলাদেশ নিউজ. সর্বস্বত্ব সংরক্ষিত।
             </p>
             <div className="flex items-center gap-4">
-              <a href="#privacy" className="text-sm text-gray-500 hover:text-red-500 transition-colors">
+              <a href="#privacy" className="text-sm text-gray-400 hover:text-green-500 transition-colors">
                 প্রাইভেসি পলিসি
               </a>
-              <a href="#terms" className="text-sm text-gray-500 hover:text-red-500 transition-colors">
+              <a href="#terms" className="text-sm text-gray-400 hover:text-green-500 transition-colors">
                 টার্মস অফ ইউজ
               </a>
-              <a href="#cookies" className="text-sm text-gray-500 hover:text-red-500 transition-colors">
+              <a href="#cookies" className="text-sm text-gray-400 hover:text-green-500 transition-colors">
                 কুকিজ পলিসি
               </a>
             </div>

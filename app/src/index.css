@@ -18,18 +18,19 @@
     --secondary-foreground: 0 0% 10%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
-    --accent: 0 70% 50%;
+    --accent: 142 76% 36%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 88%;
     --input: 0 0% 88%;
-    --ring: 0 70% 50%;
+    --ring: 142 76% 36%;
     --radius: 0.5rem;
     
-    /* News Portal Custom Colors */
-    --news-red: #d32f2f;
-    --news-red-light: #ff5252;
+    /* News Portal Custom Colors - Green Theme */
+    --news-green: #16a34a;
+    --news-green-light: #22c55e;
+    --news-green-dark: #15803d;
     --news-dark: #1a1a1a;
     --news-gray: #666666;
     --news-light-gray: #f5f5f5;
@@ -56,13 +57,13 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 70%;
-    --accent: 0 70% 50%;
+    --accent: 142 76% 36%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 70% 50%;
+    --ring: 142 76% 36%;
   }
 }
 
@@ -118,7 +119,7 @@
   .category-entertainment { @apply bg-red-100 text-red-700; }
   .category-business { @apply bg-orange-100 text-orange-700; }
   .category-tech { @apply bg-purple-100 text-purple-700; }
-  .category-national { @apply bg-teal-100 text-teal-700; }
+  .category-national { @apply bg-green-100 text-green-700; }
   .category-world { @apply bg-indigo-100 text-indigo-700; }
   
   .section-title {
@@ -128,7 +129,7 @@
   .section-title::after {
     content: '';
     @apply absolute bottom-0 left-0 w-16 h-1 rounded;
-    background-color: var(--news-red);
+    background-color: var(--news-green);
   }
   
   .breaking-ticker {
@@ -155,12 +156,12 @@
   }
   
   .nav-link {
-    @apply relative text-gray-700 hover:text-gray-900 transition-colors duration-200;
+    @apply relative text-gray-800 hover:text-gray-900 transition-colors duration-200;
   }
   
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-200;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-200;
   }
   
   .nav-link:hover::after {

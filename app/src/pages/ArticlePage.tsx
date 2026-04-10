@@ -3,16 +3,13 @@ import { useEffect, useState } from 'react';
 import { 
   ArrowLeft, 
   Clock, 
-  Eye, 
   Calendar, 
-  User, 
   Facebook, 
   Twitter, 
   Link as LinkIcon,
-  MessageCircle,
   Printer,
-  Bookmark,
   ChevronRight,
+  Newspaper,
   TrendingUp
 } from 'lucide-react';
 import { getArticleById, getRelatedArticles } from '@/data/newsData';
@@ -26,8 +23,6 @@ const ArticlePage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-
   const article = id ? getArticleById(id) : undefined;
   const relatedArticles = article ? getRelatedArticles(article.id, article.category, 4) : [];
 
@@ -40,7 +35,6 @@ const ArticlePage = () => {
   }, []);
 
   useEffect(() => {
-    // Scroll to top when article loads
     window.scrollTo(0, 0);
   }, [id]);
 
@@ -55,16 +49,14 @@ const ArticlePage = () => {
       case 'twitter':
         window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
         break;
+      case 'whatsapp':
+        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        break;
       case 'copy':
         navigator.clipboard.writeText(url);
         toast.success('লিংক কপি হয়েছে!');
         break;
     }
-  };
-
-  const handleBookmark = () => {
-    setBookmarked(!bookmarked);
-    toast.success(bookmarked ? 'বুকমার্ক সরানো হয়েছে' : 'বুকমার্ক করা হয়েছে!');
   };
 
   const handlePrint = () => {
@@ -73,13 +65,13 @@ const ArticlePage = () => {
 
   if (!article) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         <TopBar />
         <Header scrolled={scrolled} />
         <div className="max-w-4xl mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">খবরটি পাওয়া যায়নি</h1>
-          <p className="text-gray-600 mb-6">আপনি যে খবরটি খুঁজছেন তা পাওয়া যায়নি।</p>
-          <Button onClick={() => navigate('/')}>
+          <p className="text-gray-700 mb-6">আপনি যে খবরটি খুঁজছেন তা পাওয়া যায়নি।</p>
+          <Button onClick={() => navigate('/')} className="bg-green-600 hover:bg-green-700">
             <ArrowLeft className="w-4 h-4 mr-2" />
             হোমপেজে ফিরে যান
           </Button>
@@ -90,263 +82,155 @@ const ArticlePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <TopBar />
       <Header scrolled={scrolled} />
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link to="/" className="hover:text-red-600 transition-colors">হোম</Link>
+      <div className="border-b">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav className="flex items-center gap-2 text-sm text-gray-700">
+            <Link to="/" className="hover:text-green-600 transition-colors">হোম</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900">{article.category}</span>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-500 truncate max-w-xs">{article.title}</span>
+            <span className="text-green-600 font-medium">{article.category}</span>
           </nav>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Article */}
-          <article className="lg:col-span-2">
-            {/* Article Header */}
-            <header className="bg-white rounded-xl shadow-sm p-6 mb-6">
-              {/* Category & Meta */}
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className={`category-badge ${article.categoryClass}`}>
-                  {article.category}
-                </span>
-                <span className="flex items-center gap-1 text-sm text-black">
-                  <Clock className="w-4 h-4" />
-                  {article.readTime} পড়া
-                </span>
-                <span className="flex items-center gap-1 text-sm text-black">
-                  <Eye className="w-4 h-4" />
-                  {article.views} বার দেখা
-                </span>
-              </div>
-
-              {/* Title */}
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-tight mb-6">
-                {article.title}
-              </h1>
-
-              {/* Author & Date */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <User className="w-6 h-6 text-red-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-black">{article.author}</p>
-                    <div className="flex items-center gap-3 text-sm text-black">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        প্রকাশিত: {article.publishedAt}
-                      </span>
-                      {article.updatedAt && (
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          আপডেট: {article.updatedAt}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => handleShare('facebook')}
-                    className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
-                  >
-                    <Facebook className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={() => handleShare('twitter')}
-                    className="w-9 h-9 bg-sky-500 rounded-lg flex items-center justify-center text-white hover:bg-sky-600 transition-colors"
-                  >
-                    <Twitter className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={() => handleShare('copy')}
-                    className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors"
-                  >
-                    <LinkIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={handleBookmark}
-                    className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-                      bookmarked ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-white' : ''}`} />
-                  </button>
-                  <button 
-                    onClick={handlePrint}
-                    className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors"
-                  >
-                    <Printer className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </header>
-
-            {/* Featured Image */}
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
-              <div className="aspect-video">
-                <img 
-                  src={article.image} 
-                  alt={article.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-sm text-gray-500 p-4 bg-gray-50">
-                ছবি: {article.title} (সংগৃহীত)
-              </p>
-            </div>
-
-            {/* Article Content */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
-              <div className="prose prose-lg max-w-none">
-                <p className="text-xl text-gray-700 leading-relaxed font-medium mb-6 border-l-4 border-red-600 pl-4">
-                  {article.excerpt}
-                </p>
-                
-                {article.content.map((paragraph, index) => (
-                  <p key={index} className="text-black leading-relaxed mb-4">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-
-              {/* Tags */}
-              <div className="mt-8 pt-6 border-t">
-                <p className="text-sm text-gray-500 mb-3">ট্যাগ:</p>
-                <div className="flex flex-wrap gap-2">
-                  {article.tags.map((tag, index) => (
-                    <span 
-                      key={index}
-                      className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer transition-colors"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Share Section */}
-              <div className="mt-8 pt-6 border-t">
-                <p className="text-sm text-gray-500 mb-3">শেয়ার করুন:</p>
-                <div className="flex items-center gap-3">
-                  <button 
-                    onClick={() => handleShare('facebook')}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    <Facebook className="w-4 h-4" />
-                    <span className="text-sm">Facebook</span>
-                  </button>
-                  <button 
-                    onClick={() => handleShare('twitter')}
-                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
-                  >
-                    <Twitter className="w-4 h-4" />
-                    <span className="text-sm">Twitter</span>
-                  </button>
-                  <button 
-                    onClick={() => handleShare('copy')}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
-                  >
-                    <LinkIcon className="w-4 h-4" />
-                    <span className="text-sm">লিংক কপি</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Comments Section Placeholder */}
-            <div className="bg-white rounded-xl shadow-sm p-6 mt-6">
-              <div className="flex items-center gap-2 mb-4">
-                <MessageCircle className="w-5 h-5 text-red-600" />
-                <h3 className="text-lg font-bold text-gray-900">মন্তব্য (০)</h3>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-6 text-center">
-                <p className="text-gray-500 mb-4">মন্তব্য করতে লগইন করুন</p>
-                <Button variant="outline">লগইন</Button>
-              </div>
-            </div>
-          </article>
-
-          {/* Sidebar */}
-          <aside className="space-y-6">
-            {/* Related News */}
-            <div className="bg-white rounded-xl shadow-sm p-5">
-              <div className="flex items-center gap-2 mb-5">
-                <TrendingUp className="w-5 h-5 text-red-600" />
-                <h3 className="text-lg font-bold text-gray-900">এই বিভাগের আরও খবর</h3>
-              </div>
-              <div className="space-y-4">
-                {relatedArticles.length > 0 ? (
-                  relatedArticles.map((news, index) => (
-                    <Link 
-                      key={index}
-                      to={`/article/${news.id}`}
-                      className="group flex gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
-                    >
-                      <div className="w-20 h-16 flex-shrink-0 overflow-hidden rounded-lg">
-                        <img 
-                          src={news.image} 
-                          alt={news.title}
-                          className="w-full h-full object-cover transition-transform group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors">
-                          {news.title}
-                        </h4>
-                        <span className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {news.readTime}
-                        </span>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <p className="text-gray-500 text-sm">এই বিভাগে আরও খবর নেই</p>
-                )}
-              </div>
-            </div>
-
-            {/* More From This Category */}
-            <div className="bg-white rounded-xl shadow-sm p-5">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">সর্বশেষ খবর</h3>
-              <div className="space-y-3">
-                {[1, 2, 3, 4, 5].map((_, index) => (
-                  <Link 
-                    key={index}
-                    to={`/article/${(parseInt(id || '0') + index + 1) % 8 + 1}`}
-                    className="group block p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors">
-                      সর্বশেষ খবর শিরোনাম #{index + 1} - গুরুত্বপূর্ণ সংবাদটি এখানে দেখুন
-                    </h4>
-                    <span className="text-xs text-gray-500 mt-1">১ ঘণ্টা আগে</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Ad Placeholder */}
-            <div className="bg-gray-100 rounded-xl p-5 text-center">
-              <p className="text-sm text-gray-500 mb-2">বিজ্ঞাপন</p>
-              <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                <p className="text-gray-400 text-sm">৩০০ x ২৫০</p>
-              </div>
-            </div>
-          </aside>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Category Badge */}
+        <div className="mb-4">
+          <span className={`inline-block px-4 py-1.5 text-sm font-semibold rounded ${article.categoryClass}`}>
+            {article.category}
+          </span>
         </div>
+
+        {/* Article Title */}
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-6">
+          {article.title}
+        </h1>
+
+        {/* Author & Date Info */}
+        <div className="flex items-center gap-4 pb-6 border-b mb-6">
+          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <Newspaper className="w-6 h-6 text-green-600" />
+          </div>
+          <div>
+            <p className="font-semibold text-gray-900">নিজস্ব প্রতিবেদন</p>
+            <div className="flex items-center gap-3 text-sm text-gray-700">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                প্রকাশ: {article.publishedAt}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Share Buttons */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          <button 
+            onClick={() => handleShare('facebook')}
+            className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
+          >
+            <Facebook className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => handleShare('twitter')}
+            className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
+          >
+            <Twitter className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => handleShare('whatsapp')}
+            className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white hover:bg-green-600 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </button>
+          <button 
+            onClick={handlePrint}
+            className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
+          >
+            <Printer className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => handleShare('copy')}
+            className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors bg-green-700 text-white hover:bg-green-800"
+          >
+            <LinkIcon className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Featured Image */}
+        <div className="mb-8">
+          <div className="aspect-video overflow-hidden rounded-lg">
+            <img 
+              src={article.image} 
+              alt={article.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Article Content */}
+        <div className="prose prose-lg max-w-none mb-10">
+          {article.content.map((paragraph, index) => (
+            <p key={index} className="text-gray-800 leading-relaxed mb-5 text-lg">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        {/* Tags */}
+        <div className="mb-10">
+          <div className="flex flex-wrap gap-2">
+            {article.tags.map((tag, index) => (
+              <span 
+                key={index}
+                className="px-4 py-2 bg-gray-100 text-gray-800 text-sm rounded-lg hover:bg-green-100 hover:text-green-700 cursor-pointer transition-colors"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Related News */}
+        {relatedArticles.length > 0 && (
+          <div className="border-t pt-8">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp className="w-5 h-5 text-green-600" />
+              <h3 className="text-xl font-bold text-gray-900">এই বিভাগের আরও খবর</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {relatedArticles.map((news, index) => (
+                <Link 
+                  key={index}
+                  to={`/article/${news.id}`}
+                  className="group flex gap-4 p-4 bg-gray-50 rounded-xl hover:bg-green-50 transition-colors"
+                >
+                  <div className="w-24 h-20 flex-shrink-0 overflow-hidden rounded-lg">
+                    <img 
+                      src={news.image} 
+                      alt={news.title}
+                      className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
+                      {news.title}
+                    </h4>
+                    <span className="text-xs text-gray-700 mt-2 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {news.readTime}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />
